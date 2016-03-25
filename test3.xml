@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <title>阿迈</title>
+    <host>120.25.224.8</host>
+    <port>83</port>
+    <No>[1002]</No>
+    <InterfaceList>
+        <id>1001</id>
+        <name>登陆</name>
+        <method>POSR</method>
+        <url>/api/v1.0/user/login.ashx?</url>
+        <hope>Token</hope>
+        <!--<hope>userid</hope>-->
+        <params>{"UserName":"18576759587","Password":"222222","IMEI":"868157020567821","Plat":"android","Version":"3.0","PhoneModel":"H60-L02"}</params>
+        <login>token</login>
+        <isList>0</isList>
+        <!--Version=3.0&UserName=18576759587&IMEI=868157020567821&Password=222222&City=%E6%B7%B1%E5%9C%B3%E5%B8%82&Province=%E5%B9%BF%E4%B8%9C%E7%9C%81&Plat=android&PhoneModel=H60-L02-->
+    </InterfaceList>
+    <InterfaceList>
+        <id>1002</id>
+        <name>分类</name>
+        <method>POST</method>
+        <url>/api/v1.0/basedata/goodstypes.ashx</url>
+        <hope>{'Data':[{'TypesName': '干货', 'Initials': '', 'TypesId': '559','test':'shi'}],'Success': '1'}</hope>
+        <params>{}</params>
+         <login>0</login>
+        <isList>1</isList>
+    </InterfaceList>
+</root>

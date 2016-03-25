@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US-x-Hixie">
+<head>
+    <meta charset="utf-8"/>
+    <title>FileSaver.js demo</title>
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <script type="application/javascript" src="js/Blob.js"></script>
+    <script type="application/javascript" src="js/canvas-toBlob.js"></script>
+    <script type="application/javascript" src="js/FileSaver.js"></script>
+    <script async="" type="application/javascript" src="js/demo.js"></script>
+</head>
+<body>
+    <section id="text-demo">
+        <h2>接口测试参数生成器</h2>
+        <p style="margin: 0 auto; width: 400px;">
+            xml例子如下：<br />
+            &lt;?xml version="1.0" encoding="utf-8"?&gt; <br />
+            &lt;root&gt;<br />
+            &lt;title&gt;接口测试&lt;/title&gt;<br />
+            &lt;/root&gt;<br />
+        </p>
+        <textarea class="input" id="text" placeholder="Once upon a time..."/>
+
+        <form id="text-options">
+            <label>Filename: <input type="text" class="filename" id="text-filename" placeholder="a plain document"/>.xml</label>
+            <input type="submit" value="Save"/>
+        </form>
+    </section>
+
+
+</body>
+</html>
