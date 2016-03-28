@@ -4,7 +4,7 @@ from pyh import *
 import time
 import os
 class HtmlReport:
-    def __init__(self,gm):
+    def __init__(self, gm):
         self.filename = ''                   # 结果文件名
         self.time_took = '00:00:00'         # 测试耗时
         self.success_num = 0                  # 测试通过的用例数

@@ -3,7 +3,7 @@
     <title>阿迈</title>
     <host>120.25.224.8</host>
     <port>83</port>
-    <No>[1002]</No>
+    <No>[1002,1003]</No>
     <InterfaceList>
         <id>1001</id>
         <name>登陆</name>
@@ -21,7 +21,17 @@
         <name>分类</name>
         <method>POST</method>
         <url>/api/v1.0/basedata/goodstypes.ashx</url>
-        <hope>{'Data':[{'TypesName': '干货', 'Initials': '', 'TypesId': '559','test':'shi'}],'Success': '1'}</hope>
+        <hope>{'Data':[{'TypesName': '干货', 'Initials': '', 'TypesId': '559'}],'Success': '1'}</hope>
+        <params>{}</params>
+         <login>0</login>
+        <isList>1</isList>
+    </InterfaceList>
+    <InterfaceList>
+        <id>1003</id>
+        <name>分类1</name>
+        <method>POST</method>
+        <url>/api/v1.0/basedata/goodstypes.ashx</url>
+        <hope>{'Data':[{'TypesName': '干货', 'Initials': '', 'TypesId': '559'}],'Success': '1'}</hope>
         <params>{}</params>
          <login>0</login>
         <isList>1</isList>

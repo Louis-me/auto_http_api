@@ -41,18 +41,3 @@ def compareJson(hope, result, isList):
     else:
         print("接口测试失败")
         return False
-# if i_tree.execute("$.Success") == j_tree.execute("$.Success"):
-#     if compareKey(j["Data"][0]) == compareKey(i["Data"][0]):
-#         return True
-#     else:
-#         return False
-# else:
-#     print("对比失败")
-
-    # def ordered(obj):
-    # if isinstance(obj, dict):
-    # return sorted((k, ordered(v)) for k, v in obj.items())
-    #     if isinstance(obj, list):
-    #         return sorted(ordered(x) for x in obj)
-    #     else:
-    #         return obj
