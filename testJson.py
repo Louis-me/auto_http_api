@@ -1,6 +1,5 @@
 __author__ = 'Administrator'
 from objectpath import *
-
 # hope = {"Data": [{"TypesId": "559", "Initials": "", "TypesName": "干货"}], "Total": "6", "Success": "1"}
 # result = {
 #     "Data": [{"TypesId": "111", "Initials": "", "TypesName": "干货"},
