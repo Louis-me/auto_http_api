@@ -8,7 +8,6 @@ import htmlreport
 import operateXML
 import testJson
 from common import Goals as go
-
 #读取xml接口测试信息
 gm = operateXML.getXML("test3.xml")
 # 读取并配置接口服务器IP，端口等信息
