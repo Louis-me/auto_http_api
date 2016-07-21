@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-import httpbase
 import unittest
 import time
-import config
+
+from controller import config
 import htmlreport
-import operateXML
-import testJson
-from common import Goals as go
-#读取xml接口测试信息
-gm = operateXML.getXML("test3.xml")
-# 读取并配置接口服务器IP，端口等信息
-base_http = httpbase.BaseHttp(gm)
+from model.common import Goals as go
+from controller import con_api_xml
+from controller import check
+
+gm = con_api_xml.ret_xml() # 读取xml
+hb = con_api_xml.ret_http_base(gm) #读取http参数
+
+
 #初始化报告
 html_report1 = htmlreport.HtmlReport(gm)
 
@@ -22,19 +23,20 @@ class TestInterfaceCase(unittest.TestCase):
         self.hope = hope
         self.index = index
     def setUp(self):
-        self.config_http = config.ConfigHttp(base_http.get_host(), base_http.get_port())
+        self.config_http = config.ConfigHttp(hb.host, hb.port)
     def function(self):
         response = ""
         if self.index == 1:
              if gm[self.index]["method"] == "POST":
                 response = self.config_http.post(go.URL, go.PARAMS)
                 go.REALLY_RESULT = eval(response)
-
+                print(go.REALLY_RESULT)
                 hope = eval(self.hope)
-                temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
+                # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
+                temp = check.compare(hope,go.REALLY_RESULT)
                 if temp:
-                    go.LOGIN_KY = go.REALLY_RESULT["login"]
-                    go.LOGIN_VALUE = go.REALLY_RESULT[go.LOGIN_KY]
+                    go.LOGIN_KY = gm[1]["login"]
+                    go.LOGIN_VALUE = go.REALLY_RESULT["content"][0][go.LOGIN_KY]
                     go.RESULT = 'Pass'
                     html_report1.success_num = html_report1.success_num + 1
                 else:
@@ -47,9 +49,11 @@ class TestInterfaceCase(unittest.TestCase):
                 response = self.config_http.post(go.URL, go.PARAMS)
             if gm[self.index]["method"] == "GET":
                 response = self.config_http.get(go.URL, go.PARAMS)
-            go.REALLY_RESULT = eval(response)
+            print(type(response))
+            go.REALLY_RESULT = eval(str(response))
             hope = eval(self.hope)
-            temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
+            # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
+            temp = check.compare(hope,go.REALLY_RESULT)
             print(temp)
             if temp:
                 go.RESULT = 'Pass'
@@ -68,8 +72,9 @@ def get_test_suite(index):
 
 # 运行测试用例函数
 def run_case(runner):
+    print("11111")
     html_report1.case_total = 0
-    case_list = base_http.get_NO()
+    case_list = hb.No
     case_list = eval(case_list)  # 把字符串类型的list转换为list
     html_report1.case_list = case_list
     temp_case = ""
@@ -100,5 +105,5 @@ if __name__ == '__main__':
     run_case(runner)
     end_time = time.time()
     html_report1.time_caculate(end_time - start_time)  # 计算测试消耗时间
-    html_report1.generate_html( r'd:\\report.html')     # 生成测试报告
+    html_report1.generate_html( r'D:\\app\\auto_http34_test\\report\report.html')     # 生成测试报告
 

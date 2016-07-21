@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 from pyh import *
 import time
@@ -41,7 +41,7 @@ class HtmlReport:
                                 td(self.gm[j]["params"],style='word-break:break-all') + td(self.gm[j]["really_result"]) + td(self.gm[j]["hope"],style='word-break:break-all')+
                                 td(self.gm[j]["result"], align='center'))
         self._set_result_filename(file)
-        page.printOut(self.filename)
+        page.printOut(self.filename, 'UTF-8')
     # 设置结果文件名
     def _set_result_filename(self, filename):
         self.filename = filename

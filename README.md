@@ -56,6 +56,21 @@ port = 10003
  * 一级检查点和二级检查点（嵌套层，只是检查key是否存在）
  * 二级检查主要用的是list set差集的方式 
 * 更新了html接口生成器
-* 代码参考：https://github.com/284772894/SaveXML
+
+### 2016-7-21
+
+* 代码简单优化了下
+* 主要更新了对比规则,第一层对比code的状态，第二层全字段对比，之前想复杂了
+
+```
+def compare(exJson,factJson):
+    if factJson["appStatus"]["errorCode"] == 0:
+       return exJson==factJson
+    else:
+        print("接口请求失败")
+        return False
+```
+
+* 生成器代码参考：https://github.com/284772894/SaveXML
 
 
