@@ -53,7 +53,7 @@ class TestInterfaceCase(unittest.TestCase):
             go.REALLY_RESULT = eval(str(response))
             hope = eval(self.hope)
             # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
-            temp = check.compare(hope,go.REALLY_RESULT)
+            temp = check.compare(hope,go.REALLY_RESULT,  gm[self.index]["isList"])
             print(temp)
             if temp:
                 go.RESULT = 'Pass'

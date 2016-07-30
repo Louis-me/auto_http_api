@@ -71,6 +71,41 @@ def compare(exJson,factJson):
         return False
 ```
 
+
+### 2016-7-30 更新日志
+* 修改对比规则，如果有嵌套层，首页对比第一层的code,然后对比其他嵌套层的value，不进行其他嵌套层的全字段匹配
+
+```
+def compare(exJson,factJson,isList=0):
+    isFlag = True
+    if exJson.get("appStatus") == factJson.get("appStatus"):
+        if isList== False: # 如果没有嵌套层
+            return isFlag
+        data2 = exJson.get("content")
+        data3 = factJson.get("content")
+        for item2 in data2:
+            for item3 in data3:
+                keys2 = item2.keys()
+                keys3 = item3.keys()
+                if keys2 == keys3: # 如果嵌套层的key完全相等
+                     for key in keys2:
+                        value2 = item2.get(key)
+                        value3 = item3.get(key)
+                        if type(value3)==type(value2):# 对比嵌套层的value的type值
+                           pass
+                        else:
+                            isFlag = False
+                            break
+                else:
+                    isFlag = False
+                    break
+    else:
+        isFlag = False
+    print(isFlag)
+    return isFlag
+```
+
+
 * 生成器代码参考：https://github.com/284772894/SaveXML
 
 

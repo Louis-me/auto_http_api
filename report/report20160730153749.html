@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><title>导购码接口测试</title>
+</head>
+<body><h1 align="center">导购码接口测试</h1>
+<p>测试总耗时：0.09</p>
+<p>测试用例数：2&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp成功用例数：1&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp失败用例数：0&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp出错用例数：1</p>
+<table cellspacing="0" class="table" cellpadding="1" border="1"><tr><td bgcolor="#ABABAB" align="center">用例ID</td>
+<td bgcolor="#ABABAB" align="center">接口名称</td>
+<td bgcolor="#ABABAB" align="center">接口协议</td>
+<td bgcolor="#ABABAB" align="center">URL</td>
+<td bgcolor="#ABABAB" align="center">参数/数据</td>
+<td bgcolor="#ABABAB" align="center">实际值</td>
+<td bgcolor="#ABABAB" align="center">预期值</td>
+<td bgcolor="#ABABAB" align="center">测试结果</td>
+
+</tr>
+<tr><td align="center">1001</td>
+<td>登陆</td>
+<td>POST</td>
+<td align="center">/Login</td>
+<td style="word-break:break-all">{"account":"18576759587","password":"1112111","type":"0"}</td>
+<td>{'appStatus': {'message': '用户名或者密码错误，请重新输入', 'errorCode': 255}, 'content': []}</td>
+<td style="word-break:break-all">{"appStatus":{"errorCode":0,"message":"操作成功"},"content":[{"user_sex":0,"fk_user_city":440300,"user_id":30,"nickname":"18576759587","user_phone":"18576759587","head_picture":"http:\/\/dgm.boweixin.com\/","has_finance":1,"user_state":1}]}</td>
+<td align="center">Fail</td>
+
+</tr>
+<tr><td align="center">1002</td>
+<td>厂家主页</td>
+<td>GET</td>
+<td align="center">/GetFactoryHome?homeId=2</td>
+<td style="word-break:break-all">{}</td>
+<td>{'appStatus': {'message': '操作成功', 'errorCode': 0}, 'content': [{'notice_id': 1, 'notice_img': '\\/product\\/20160718184134_321.jpg,\\/product\\/20160729163042_9622.png,\\/product\\/20160729163114_3163.png', 'user_type': 1, 'shop_img': '\\/product\\/20160718120144_3196.jpg', 'head_picture': 'http:\\/\\/dgm.boweixin.com\\/\\/product\\/20160718134528_4744.jpg', 'goods': [{'good_price': 45211.0, 'good_id': 12, 'good_name': '艾欧', 'banner_picture1': '\\/product\\/20160719165135_8977.png'}, {'good_price': 199.0, 'good_id': 14, 'good_name': '麒麟瓜1', 'banner_picture1': '\\/product\\/20160720102028_5352.jpg'}, {'good_price': 452.0, 'good_id': 6, 'good_name': '实力产品', 'banner_picture1': '\\/product\\/20160718165448_2602.png'}, {'good_price': 99898.0, 'good_id': 11, 'good_name': '越南芒果', 'banner_picture1': '\\/product\\/20160720100057_5877.jpg'}], 'business_name': '坤达点子', 'user_id': 2}]}</td>
+<td style="word-break:break-all">{"appStatus":{"errorCode":0,"message":"操作成功"},"content":[{"business_name":"坤达点子","notice_img":"\/product\/20160718184134_321.jpg","user_type":1,"user_id":2,"goods":[{"good_price":45211.0,"good_id":12,"good_name":"艾欧","banner_picture1":"\/product\/20160719165135_8977.png"},{"good_price":199.0,"good_id":14,"good_name":"麒麟瓜1","banner_picture1":"\/product\/20160720102028_5352.jpg"},{"good_price":452.0,"good_id":6,"good_name":"实力产品","banner_picture1":"\/product\/20160718165448_2602.png"},{"good_price":99898.0,"good_id":11,"good_name":"越南芒果","banner_picture1":"\/product\/20160720100057_5877.jpg"}],"shop_img":"\/product\/20160718120144_3196.jpg","head_picture":"http:\/\/dgm.boweixin.com\/\/product\/20160718134528_4744.jpg","notice_id":1}]}</td>
+<td align="center">Pass</td>
+
+</tr>
+</table>
+</body>
+</html>
