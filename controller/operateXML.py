@@ -24,5 +24,5 @@ def getXML(xml):
         i_app["login"] = elem.find('login').text
         i_app["isList"] = elem.find('isList').text
         interfaceName.append(i_app)
-    print(interfaceName)
+    # print(interfaceName)
     return interfaceName

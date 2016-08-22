@@ -105,6 +105,14 @@ def compare(exJson,factJson,isList=0):
     return isFlag
 ```
 
+### 2016-8-22 更新日志
+
+* 测试报告改用控制excel的显示方式 
+
+![test_mark.png](test_mark.png "test_mark.png")
+
+![test_detail.png](test_detail.png "test_detail.png")
+
 
 * 生成器代码参考：https://github.com/284772894/SaveXML
 
