@@ -57,6 +57,8 @@ port = 10003
  * 二级检查主要用的是list set差集的方式 
 * 更新了html接口生成器
 
+* 生成器代码参考：https://github.com/284772894/SaveXML
+
 ### 2016-7-21
 
 * 代码简单优化了下
@@ -113,7 +115,9 @@ def compare(exJson,factJson,isList=0):
 
 ![test_detail.png](test_detail.png "test_detail.png")
 
+### 2016-8-23 更新日志
 
-* 生成器代码参考：https://github.com/284772894/SaveXML
+* 测试报告以发送邮件的方式通知
+
 
 

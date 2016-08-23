@@ -8,6 +8,7 @@ from controller import con_api_xml
 from controller import check
 import BaseExcelReport as be
 import xlsxwriter
+import sendMail as sd
 gm = con_api_xml.ret_xml() # 读取xml
 hb = con_api_xml.ret_http_base(gm) #读取http参数
 data = {"info":[]}
@@ -135,5 +136,7 @@ if __name__ == '__main__':
     bc.init(worksheet)
     bc.test_detail(worksheet2)
     bc.close()
+
+    sd.send_mail("report.xlsx", ["284772894@qq.com", "ashikun@126.com"])
 
 
