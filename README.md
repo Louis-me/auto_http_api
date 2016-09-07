@@ -111,9 +111,9 @@ def compare(exJson,factJson,isList=0):
 
 * 测试报告改用控制excel的显示方式 
 
-![test_mark.png](test_mark.png "test_mark.png")
+![test_mark.png](img/test_mark.png "test_mark.png")
 
-![test_detail.png](test_detail.png "test_detail.png")
+![test_detail.png](img/test_detail.png "test_detail.png")
 
 ### 2016-8-23 更新日志
 
