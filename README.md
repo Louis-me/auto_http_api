@@ -31,7 +31,7 @@ index = [1001,1002] 配置运行部分用例id
 host = 192.168.1.249
 port = 10003
 ```
-![结果生成报表](report.png  "结果生成报表")
+![结果生成报表](img/report.png  "结果生成报表")
 
 ###2016-1-5 更新日志
 * 更新了使用了requests模块，可以自定义扩展成get,post,put,delete,head,options等方法，同时支持上传图片
