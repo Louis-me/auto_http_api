@@ -16,7 +16,7 @@
 * Config.py http方法的封装,可以支持多协议扩展，get,post
 * Runner_m.py 核心代码。run_case是程序的入口
 * Htmlreport.py 结果生成html文件
-![结果生成报表](report.png  "结果生成报表")
+![结果生成报表](img/report.png  "结果生成报表")
 
 ##主要更新历史：
 
@@ -31,6 +31,7 @@ index = [1001,1002] 配置运行部分用例id
 host = 192.168.1.249
 port = 10003
 ```
+
 ![结果生成报表](img/report.png  "结果生成报表")
 
 ###2016-1-5 更新日志
