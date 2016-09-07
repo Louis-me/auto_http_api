@@ -23,7 +23,7 @@
 ###2015-8-3 更新历史
 * 自动化接口测试框架完成
 * 第三方包：pyh(生成结果html文件), config.ini设置信息  excel管理用例
-![testCaseExcel.xlsl](testCaseExcel.png "testCaseExcel.xlsl")
+![testCaseExcel.xlsl](img/testCaseExcel.png "testCaseExcel.xlsl")
 ``` 配置文件
 Case_config.ini
 [DEFAULT]
@@ -119,5 +119,7 @@ def compare(exJson,factJson,isList=0):
 
 * 测试报告以发送邮件的方式通知
 
+### 2016-9-7
+* 三层架构重构整个系统
 
 
