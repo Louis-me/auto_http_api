@@ -11,3 +11,5 @@ class ConfigHttp():
 
     def post(self, url, files=None, params=None):
         return self.mh.post(url, files, params)
+
+    # def check_param(self):

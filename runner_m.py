@@ -9,12 +9,14 @@ import xlsxwriter
 from MODEL import Memail
 from BLL import BgetEmail,BsendEmail
 from BLL import BexcelReport as excel
-from COMMON import operateXML
+from COMMON import operateXML as om
 from BLL import Bhttpbase
 from MODEL import Mhttpbase
 from BLL import Bresult, BresultDetail
 from MODEL import Mresult, MresultDetail
+from COMMON import http_param as hp
 import json
+
 
 
 mresult = Mresult.result()
@@ -31,7 +33,7 @@ def excel_report(wd, data, worksheet_init, worksheet_detail):
     ex.detail(worksheet_detail, data[1])
 
 def get_api():
-   return operateXML.getXML("d:\\app\\auto_http34_test\\test3.xml", Mhttpbase.BaseHttp())
+   return om.getXML("d:\\app\\auto_http34_test\\test4.xml", Mhttpbase.BaseHttp())
 
 def configHttp(httpbase):
    return Bhttpbase.ConfigHttp(httpbase)
@@ -58,14 +60,15 @@ class TestInterfaceCase(unittest.TestCase):
         response = ""
         if self.index == 1:
              if gm[self.index]["method"] == "POST":
-                response = self.config_http.post(url=go.URL, params=go.PARAMS)
+                response = self.config_http.post(url=gm[self.index]["url"], params=hp.str__post_param(gm[self.index]["param"]))
                 go.REALLY_RESULT = eval(response)
                 hope = eval(self.hope)
                 # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
                 temp = check.compare(hope, go.REALLY_RESULT)
                 if temp:
-                    go.LOGIN_KY = gm[1]["login"]
-                    go.LOGIN_VALUE = go.REALLY_RESULT["content"][0][go.LOGIN_KY]
+                    go.LOGIN_KEY = gm[self.index]["login"]
+                    print(go.LOGIN_KEY)
+                    go.LOGIN_VALUE = go.REALLY_RESULT["content"][0][go.LOGIN_KEY]
                     go.RESULT = 'Pass'
                     go.SUCCESS_SUM += 1
                 else:
@@ -75,17 +78,17 @@ class TestInterfaceCase(unittest.TestCase):
             if gm[self.index]["login"] != "0":
                     go.PARAMS[go.LOGIN_KEY] = go.LOGIN_VALUE
             if gm[self.index]["method"] == "POST":
-                response = self.config_http.post(go.URL, go.PARAMS)
+                go.PARAMS =  hp.str__post_param(gm[self.index]["param"])
+                response = self.config_http.post(gm[self.index]["url"], go.PARAMS)
             if gm[self.index]["method"] == "GET":
-                response = self.config_http.get(go.URL)
+                go.PARAMS = hp.str_get_param(gm[self.index]["param"][0], go.PARAMS)
+                response = self.config_http.get(gm[self.index]["url"], go.PARAMS)
             go.REALLY_RESULT = eval(str(response))
             hope = eval(self.hope)
-            # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
             temp = check.compare(hope, go.REALLY_RESULT,  gm[self.index]["isList"])
             if temp:
                 go.RESULT = 'Pass'
                 go.SUCCESS_SUM += 1
-            # except AssertionError:
             else:
                 go.RESULT = 'Fail'
                 go.ERROR_NUM += 1
@@ -95,35 +98,30 @@ class TestInterfaceCase(unittest.TestCase):
 def get_test_suite(index):
     test_suite = unittest.TestSuite()
     hope = gm[index]["hope"] # 预期值
-    test_suite.addTest(TestInterfaceCase("function", hope,index))
+    test_suite.addTest(TestInterfaceCase("function", hope, index))
     return test_suite
 
 # 运行测试用例函数
 def run_case(runner):
     case_list = httpbase.No
     case_list = eval(case_list)  # 把字符串类型的list转换为list
-    temp_case = ""
     if len(case_list) == False: #判断是否执行指定的用例ID
         temp_case = gm
         for index in range(1, len(temp_case)):
-            go.URL = gm[index]['url']
-            go.PARAMS = gm[index]["params"]
             test_suite = get_test_suite(index)
             runner.run(test_suite)
             # 记录运行结果
-            mresult.info.append(json.loads(json.dumps(resultInfo(MresultDetail.resultInfo(), t_id=gm[index]["id"], t_name=gm[index]["name"], t_url=gm[0]["host"] + gm[index]["url"],
-                       t_param=gm[index]["params"], t_actual=go.REALLY_RESULT, t_hope=gm[index]["hope"], t_result=go.RESULT,
+            mresult.info.append(json.loads(json.dumps(resultInfo(MresultDetail.resultInfo(), t_id=gm[index]["id"], t_name=gm[index]["name"], t_url=gm[0]["host"] +"/" + gm[index]["url"],
+                       t_param=str(go.PARAMS), t_actual=go.REALLY_RESULT, t_hope=gm[index]["hope"], t_result=go.RESULT,
                        t_method=gm[index]["method"]).to_primitive())))
     else:
         for i in case_list:
             for j in range(1, len(gm)):
                 if str(i) == gm[j]['id']:
-                    go.URL = gm[j]['url']
-                    go.PARAMS = gm[j]["params"]
                     test_suite = get_test_suite(j)
                     runner.run(test_suite)
-                    mresult.info.append(json.loads(resultInfo(MresultDetail.resultInfo, t_id=gm[j]["id"], t_name=gm[j]["name"], t_url=gm[0]["host"] + gm[0]["url"],
-                       t_param=gm[j]["params"], t_actual=go.REALLY_RESULT, t_hope=gm[j]["hope"], t_result=go.RESULT,
+                    mresult.info.append(json.loads(resultInfo(MresultDetail.resultInfo, t_id=gm[j]["id"], t_name=gm[j]["name"], t_url=gm[0]["host"] +"/"+gm[0]["url"],
+                       t_param=str(go.PARAMS), t_actual=go.REALLY_RESULT, t_hope=gm[j]["hope"], t_result=go.RESULT,
                        t_method=gm[j]["method"]).to_primitive()))
 
 # 运行测试套件
@@ -140,8 +138,6 @@ if __name__ == '__main__':
     worksheet2 = workbook.add_worksheet("测试详情")
     data = json.loads(json.dumps(result(mresult, test_date=str(sum_time) + "毫秒", test_sum=go.CASE_TOTAL, test_failed=go.ERROR_NUM, test_version="v2.2", test_pl="python3",
     test_net="本地连接", test_name=gm[0]["title"], test_success=go.SUCCESS_SUM, info=mresult.info)))
-    print("shikun")
-    print(data)
     excel_report(workbook, data, worksheet, worksheet2)
 
     # 发送email

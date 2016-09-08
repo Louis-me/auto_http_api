@@ -5,7 +5,7 @@
 import configparser
 from schematics.models import Model
 from schematics.types import StringType, URLType
-from schematics.types.compound import MultiType
+from schematics.types.compound import MultiType,ListType
 # BaseHttp类
 
 class BaseHttp(Model):
@@ -15,6 +15,7 @@ class BaseHttp(Model):
     port = StringType(required=True)
     No = StringType(required=True)
     file = StringType()
-    param = StringType()
+    param = ListType(MultiType())
     data = MultiType()
+
 
