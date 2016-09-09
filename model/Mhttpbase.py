@@ -10,12 +10,10 @@ from schematics.types.compound import MultiType,ListType
 
 class BaseHttp(Model):
     '''配置要测试接口服务器的ip、端口、域名等信息'''
-    host = StringType(required=True)
-    title = StringType(required=True)
-    port = StringType(required=True)
-    No = StringType(required=True)
-    file = StringType()
-    param = ListType(MultiType())
-    data = MultiType()
+    host = StringType()
+    port = StringType()
+    No = StringType()
+    header = StringType()
+
 
 

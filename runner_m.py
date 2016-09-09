@@ -14,9 +14,9 @@ from BLL import Bhttpbase
 from MODEL import Mhttpbase
 from BLL import Bresult, BresultDetail
 from MODEL import Mresult, MresultDetail
-from COMMON import http_param as hp
+from COMMON import http_param
 import json
-
+import ast
 
 
 mresult = Mresult.result()
@@ -27,26 +27,44 @@ def get_email():
     email = BgetEmail.read_email(g_email)
     return email
 
+# 所有的逻辑参数处理
+def str_param():
+    return http_param.chttp_params()
+
+# 测试报告的输出
 def excel_report(wd, data, worksheet_init, worksheet_detail):
     ex = excel.ExcelReport(wd, data)
     ex.init(worksheet_init, data[0])
     ex.detail(worksheet_detail, data[1])
 
+# 得到xml配置接口信息和http请求实体类
 def get_api():
    return om.getXML("d:\\app\\auto_http34_test\\test4.xml", Mhttpbase.BaseHttp())
 
+# 设置http请求实体类
 def configHttp(httpbase):
    return Bhttpbase.ConfigHttp(httpbase)
 
 gm = get_api()[0] #读取api_xml
 httpbase = get_api()[1] #读取http参数
 
-def resultInfo(mresultinfo, **kwargs):
 
+# 接口详情页的excel
+def resultInfo(mresultinfo, **kwargs):
     return BresultDetail.resultInfo(mresultinfo, **kwargs)
 
+# 接口初始页的excel
 def result(mresult, **kwargs):
     return Bresult.result(mresult, **kwargs)
+
+# 错误日志统计
+def sum_test_data(flag):
+    if flag:
+        go.RESULT = 'Pass'
+        go.SUCCESS_SUM += 1
+    else:
+        go.RESULT = 'Fail'
+        go.ERROR_NUM += 1
 
 # 测试用例(组)类
 class TestInterfaceCase(unittest.TestCase):
@@ -57,41 +75,33 @@ class TestInterfaceCase(unittest.TestCase):
     def setUp(self):
         self.config_http = configHttp(httpbase)
     def function(self):
-        response = ""
-        if self.index == 1:
+        temp_result = False
+        hp = str_param()
+        if self.index == 1: #第一个xml预留的主要是登陆
              if gm[self.index]["method"] == "POST":
-                response = self.config_http.post(url=gm[self.index]["url"], params=hp.str__post_param(gm[self.index]["param"]))
-                go.REALLY_RESULT = eval(response)
-                hope = eval(self.hope)
-                # temp = testJson.compareJson(hope, go.REALLY_RESULT, gm[self.index]["isList"])
-                temp = check.compare(hope, go.REALLY_RESULT)
-                if temp:
-                    go.LOGIN_KEY = gm[self.index]["login"]
-                    print(go.LOGIN_KEY)
-                    go.LOGIN_VALUE = go.REALLY_RESULT["content"][0][go.LOGIN_KEY]
-                    go.RESULT = 'Pass'
-                    go.SUCCESS_SUM += 1
+                go.REALLY_RESULT = self.config_http.post(url=gm[self.index]["url"], params=hp.str__post_param(gm[self.index]["param"]))
+                if go.REALLY_RESULT.get("status_code") == 200:
+                    hope = ast.literal_eval(self.hope)
+                    temp_result = check.compare(hope, go.REALLY_RESULT)
+                    if temp_result:
+                        go.LOGIN_KEY = gm[self.index]["login"]
+                        print(go.LOGIN_KEY)
+                        go.LOGIN_VALUE = go.REALLY_RESULT["content"][0][go.LOGIN_KEY]
                 else:
-                    go.RESULT = 'Fail'
-                    go.ERROR_NUM += 1
+                    pass
         else:
             if gm[self.index]["login"] != "0":
-                    go.PARAMS[go.LOGIN_KEY] = go.LOGIN_VALUE
+                    go.PARAMS[go.LOGIN_KEY] = go.LOGIN_VALUE # 登陆成功后返回过来的值，可能是token,userid等
             if gm[self.index]["method"] == "POST":
-                go.PARAMS =  hp.str__post_param(gm[self.index]["param"])
-                response = self.config_http.post(gm[self.index]["url"], go.PARAMS)
+                go.PARAMS = hp.str__post_param(gm[self.index]["param"])
+                go.REALLY_RESULT = self.config_http.post(gm[self.index]["url"], go.PARAMS)
             if gm[self.index]["method"] == "GET":
-                go.PARAMS = hp.str_get_param(gm[self.index]["param"][0], go.PARAMS)
-                response = self.config_http.get(gm[self.index]["url"], go.PARAMS)
-            go.REALLY_RESULT = eval(str(response))
-            hope = eval(self.hope)
-            temp = check.compare(hope, go.REALLY_RESULT,  gm[self.index]["isList"])
-            if temp:
-                go.RESULT = 'Pass'
-                go.SUCCESS_SUM += 1
-            else:
-                go.RESULT = 'Fail'
-                go.ERROR_NUM += 1
+                go.PARAMS = hp.str_get_param(gm[self.index]["param"][0], go.PARAMS) #把登陆成功后的token,userid合并到请求参数中
+                go.REALLY_RESULT = self.config_http.get(gm[self.index]["url"], go.PARAMS)
+            hope = ast.literal_eval(self.hope)
+            temp_result = check.compare(hope, go.REALLY_RESULT,  gm[self.index]["isList"])
+
+        sum_test_data(temp_result) #统计
         go.CASE_TOTAL += 1
 
 # 获取测试套件
@@ -104,7 +114,7 @@ def get_test_suite(index):
 # 运行测试用例函数
 def run_case(runner):
     case_list = httpbase.No
-    case_list = eval(case_list)  # 把字符串类型的list转换为list
+    case_list = ast.literal_eval(case_list)  # 把字符串类型的list转换为list
     if len(case_list) == False: #判断是否执行指定的用例ID
         temp_case = gm
         for index in range(1, len(temp_case)):
@@ -120,9 +130,10 @@ def run_case(runner):
                 if str(i) == gm[j]['id']:
                     test_suite = get_test_suite(j)
                     runner.run(test_suite)
-                    mresult.info.append(json.loads(resultInfo(MresultDetail.resultInfo, t_id=gm[j]["id"], t_name=gm[j]["name"], t_url=gm[0]["host"] +"/"+gm[0]["url"],
+                    # 记录运行结果
+                    mresult.info.append(json.loads(json.dumps(resultInfo(MresultDetail.resultInfo(), t_id=gm[j]["id"], t_name=gm[j]["name"], t_url=gm[0]["host"] +"/"+gm[j]["url"],
                        t_param=str(go.PARAMS), t_actual=go.REALLY_RESULT, t_hope=gm[j]["hope"], t_result=go.RESULT,
-                       t_method=gm[j]["method"]).to_primitive()))
+                       t_method=gm[j]["method"]).to_primitive())))
 
 # 运行测试套件
 if __name__ == '__main__':
@@ -141,7 +152,7 @@ if __name__ == '__main__':
     excel_report(workbook, data, worksheet, worksheet2)
 
     # 发送email
-    get_email = get_email()
-    BsendEmail.send_mail(get_email)
+    # get_email = get_email()
+    # BsendEmail.send_mail(get_email)
 
 

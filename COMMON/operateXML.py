@@ -1,5 +1,6 @@
 __author__ = 'Administrator'
 from xml.etree import ElementTree as ET
+
 def getXML(xml, mhttp):
     tree  = ET.parse(xml)
     root = tree.getroot()
@@ -9,7 +10,7 @@ def getXML(xml, mhttp):
     i_base["host"] = mhttp.host = root.find("host").text
     i_base["port"] = mhttp.port = root.find("port").text
     i_base["No"] = mhttp.No = root.find("No").text
-
+    mhttp.header = root.find("header").text
     interfaceName.append(i_base)
     for elem in root.findall("InterfaceList"):
         i_app = {"param":[]}

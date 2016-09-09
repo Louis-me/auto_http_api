@@ -127,5 +127,28 @@ def compare(exJson,factJson,isList=0):
 * 新增接口测试扩展
 	* 检查参数是否必填
 	* 检查参数的值类型是否正确
+	
+### 2016-9-9 
+* 实现检查参数是否必填
+* 检查参数的值类型是否正确
+* 把http_code的值合并到实际结果
+
+```
+  <params>
+            <name type="str">account</name> # type=str表示字符类型
+            <value>18576759587</value>
+            <must>1</must> # 1表示必填，0非必填
+        </params>
+        <params>
+            <name type="str">password</name>
+            <value>222222</value>
+            <must>1</must>
+        </params>
+         <params>
+            <name type="int">type</name>
+            <value>0</value>
+            <must>1</must>
+        </params>
+```
 
 
