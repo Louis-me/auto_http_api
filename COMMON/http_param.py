@@ -17,7 +17,6 @@ class  chttp_params():
         result = "?"
         if dict_param["must"] == "1": # 如果参数是必填
             result += dict_param["name"] + "=" + dict_param["value"] + "&"
-        # result += dict_param["name"] + "=" + str(self.str_to(dict_param["type"], dict_param["value"])) + "&"
         return self.str_sub(0, len(result)-1, result) + "&" + self.for_dict(param)
     # 合并dict
     def for_dict(self, d):
