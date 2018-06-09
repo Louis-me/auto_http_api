@@ -13,6 +13,7 @@
 * 点击lib目录下的install.bat安装依赖文件
 * 维护Report目录下的api.xlsx写入接口测试
 * 点击Runner.py的start.bat,或者python runner.py
+* 查看测试报告Report目录下的report.xlsx
 ### 使用模糊测试
 * 点击lib目录下的install_pict.bat进行依赖文件安装,会自动关闭explorer
 * 打开Setting目录下的Config.ini设置为True
