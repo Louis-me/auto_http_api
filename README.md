@@ -3,7 +3,7 @@
 
 ## 功能
 * Win7 64，python 3，Pycharm. unittest
-* excle管理用例
+* excel管理用例
 * 邮件发送测试结果
 * 基于pict模糊测试
 
