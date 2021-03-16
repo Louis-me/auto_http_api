@@ -31,4 +31,5 @@ def write_excel():
     operateReport.close()
 
 if __name__ == "__main__":
-    pass
+    t = read_excel(Element.API_FILE)
+    print(t)

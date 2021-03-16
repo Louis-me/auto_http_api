@@ -9,13 +9,11 @@
 
 ## 用法
 ### 不使用模糊测试
-* 首先电脑需要配置python3.4的环境
-* 点击lib目录下的install.bat安装依赖文件
+* 首先电脑需要配置python3+的环境
 * 维护Report目录下的api.xlsx写入接口测试
 * 点击Runner.py的start.bat,或者python runner.py
 * 查看测试报告Report目录下的report.xlsx
 ### 使用模糊测试
-* 点击lib目录下的install_pict.bat进行依赖文件安装,会自动关闭explorer
 * 打开Setting目录下的Config.ini设置为True
 * 模糊测试现在只支持对每个参数的错误，删除的场景，可以自行扩展
 * 模糊测试暂不支持检查点
@@ -31,4 +29,4 @@
 
 ## 其他
 
-* [使用说明](mark.md)
+* [更新说明](channel_log.md)

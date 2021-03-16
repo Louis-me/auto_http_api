@@ -1,106 +1,107 @@
-import os
 import uuid
-import time
-from Base.BaseFile import BaseFile
-from Base.BaseElementEnmu import Element
+from allpairspy import AllPairs
+# pip install allpairspy
+
+from collections import OrderedDict
 
 
-class BaseParams():
-    def __init__(self):
-        pass
+class BaseFuzzParams(object):
+    """ 设置接口的逆向参数
+        自动生成模糊接口参数第一步，提前准备逆向场景
+        Args:
+            d: dict类型，正向接口参数
+        Returns:
+           dict
+        Raises:
+           无
+        """
 
-    def __get_error(self, kw):
-        '''
-        :param kw: dict|{"type":"error","info":"test"}
-        :return:
-        '''
-        element = {
-            Element.ERROR_EMPTY: lambda: "%s删除参数" % kw["info"],
-            Element.ERROR_VALUE: lambda: "%s参数错误" % kw["info"]
-        }
-        return element[kw["type"]]()
+    def __get_data(self, d):
+        data = {}
+        for i in d:
+            data[i] = []
+            #  加入一般规则
+            data[i].append({"info": "正确的值", "code": 1, "value": d[i], "key": i})
+            data[i].append({"info": "为空", "code": -1, "value": "", "key": i})
+            data[i].append({"info": "错误的值", "code": -2, "value": self.__param_format(type(d[i])), "key": i})
+            data[i].append({"info": "删除", "code": -3, "key": i})
+        # 加入其它规则：如路径遍历，xss，注入
+        return data
 
-    # 给外部调用已经处理好的接口参数
-    def param_fi(self, param):
-        bpp = {}
-        bf = BaseFile()
-        for k in param:
-            _para = self.__param_format(param[k])
-            bpp[k] = [
-                {"%s:%s:%s:error:%s" % (k, k, _para, Element.ERROR_VALUE)},
-                {"%s:%s:%s:error:%s" % (k, k, "", Element.ERROR_EMPTY)}
-            ]
-            _t_value = ""
-            for j in bpp[k]:  # 处理参数，写入到文件中，给pict执行做准备
-                v = str(j)
-                value = v[2:len(v) - 2]
-                _t_value = _t_value + value + ","
-            bf.write(Element.PICT_PARAM, _t_value[0:len(_t_value) - 1])
-        self.__pict_wire()
-        time.sleep(2)
-        pict_param = self.__read_pict_param()
-        o_param = self.__filter_pict_param(param, pict_param)
-        bf.remove_file(Element.PICT_PARAM)
-        bf.remove_file(Element.PICT_PARAM_RESULT)
-        bf.mk_file(Element.PICT_PARAM)
-        bf.mk_file(Element.PICT_PARAM_RESULT)
-        return o_param
-
-    # pict生成接口参数
-    def __pict_wire(self):
-        cmd = "pict " + Element.PICT_PARAM + ">" + Element.PICT_PARAM_RESULT
-        print(cmd)
-        os.popen(cmd)
-
-    # 读取pict已经生成的参数，并处理
-    def __read_pict_param(self):
-        result = []
-        _result = BaseFile().read(Element.PICT_PARAM_RESULT)
-        for i in range(1, len(_result)):
-            v = _result[i][0].split(",")
-            s = []
-            for j in v:
-                app = {}
-                _j = j.split(":")
-                if len(_j) == 5:
-                    app["info"] = self.__get_error({"type": _j[4], "info": _j[0]})
-                else:
-                    app["info"] = self.__get_error({"type": _j[3], "info": _j[0]})
-                    app[_j[0]] = _j[1]
-                s.append(app)
-            result.append(s)
-        return result
-
-        # 处理读取pict参数，处理好参数发请求
-
-    def __filter_pict_param(self, ls, pict_param):
-        _result = {"params": []}
-        for item in pict_param:
-            _info = ""
-            _app = {}
-            for i in item:
-                for key in i:
-                    if key == "info":
-                        _info = _info + i["info"] + ","
-                    else:
-                        _app[key] = i[key]
-                    _app["info"] = _info
-            _result["params"].append(_app)
-        ls["info"] = "全部参数正确"
-        _result["params"].append(ls)
-
-        return _result
+    '''
+    生成逆向场景参数
+    '''
 
     def __param_format(self, key):
-        param_type = {
-            str: lambda: str(uuid.uuid1()),
-            list: lambda: [],
-            # int: lambda: int(uuid.uuid1()),
-            dict: lambda: {}
-        }
-        return param_type[type(key)]()
+        if key == str:
+            return str(uuid.uuid1())
+        elif key == int:
+            return 963852 # 也可以使用随机整数的方式
+        elif key == list:
+            return [str(uuid.uuid1())]
+        elif key == dict:
+            return {}
+        elif key == "inject":
+            return "t'exec master..xp_cmdshell 'nslookup www.google.com'--"
+        # 路径遍历
+        elif key == "path_traversal":
+            pass
+        else:
+            return "null"
 
+    '''
+    得到逆向场景参数后，用AllPairs生成全对偶参数
+    '''
 
-if __name__ == '__main__':
-    at = BaseParams()
-    # at.__get_error()
+    def __set_fuzz(self, d):
+        data = []
+        for i, par in enumerate(AllPairs(OrderedDict(d))):
+            app = []
+            for j in par:
+                app.append(j)
+            data.append(app)
+
+        dd = []
+        for i in data:
+            d = []
+            for j in range(len(i)):
+                d.append(i[j])
+            dd.append(d)
+
+        d2 = []
+        for i in dd:
+            d1 = []
+            for j in i:
+                app = {}
+                if j.get("code", -9) == -1:
+                    app[j["key"]] = ""
+                elif j.get("code", -9) == -3:
+                    pass
+                else:
+                    app[j["key"]] = j["value"]
+                app["info"] = j["key"] + j["info"]
+                d1.append(app)
+            d2.append(d1)
+        return d2
+    '''
+    对外的函数，处理生成的对偶场景接口参数
+     Returns:
+           [{},{}]
+    '''
+    def param_fi(self, d):
+        g_data = self.__get_data(d)
+        s_fuzz = self.__set_fuzz(g_data)
+        data = []
+        for i in s_fuzz:
+            for j in range(len(i)):
+                _info = ""
+                for k in range(len(i)):
+                    _info = _info + "," + i[k]["info"]
+                    i[0].update(i[k])
+                i[0]["info"] = _info.strip(",")
+                data.append(i[0])
+                break
+        return data
+if __name__ == "__main__":
+    fz = BaseFuzzParams().param_fi({"user": "name", "id": 1001, "pwd": "!@#$^&*", "data": {"test": "hello"}, "my_list":["1", "2"]})
+    print(fz)
