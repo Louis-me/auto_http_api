@@ -9,9 +9,9 @@ def readInfo(path):
             print(data)
         except EOFError:
             data = []
-            print("读取文件错误")
-    print("------read-------")
-    print(data)
+            # print("读取文件错误")
+    # print("------read-------")
+    # print(data)
     return data
 
 

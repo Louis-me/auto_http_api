@@ -2,7 +2,7 @@ import requests
 import json
 import ast
 from Base.BaseElementEnmu import Element
-from Base.BaseParams import BaseParams, BaseFuzzParams
+from Base.BaseParams import  BaseFuzzParams
 from Base.BaseStatistics import writeInfo
 
 class Config(object):
@@ -16,10 +16,13 @@ class Config(object):
             url = "%s://%s" % (item["protocol"], item["url"])
             print("==请求url:%s" % url)
             print("==请求参数:%s" % item["params"])
+            params = "{}"
+            if item.get("params"):
+                params = item["params"]
             if item["method"] == "get":
-                res = requests.get(url, data=json.dumps(ast.literal_eval(item["params"])), headers=header, verify=False)
+                res = requests.get(url, data=json.dumps(ast.literal_eval(params)), headers=header, verify=False)
             elif item["method"] == "post":
-                res = requests.post(url, data=json.dumps(ast.literal_eval(item["params"])), headers=header, verify=False)
+                res = requests.post(url, data=json.dumps(ast.literal_eval(params)), headers=header, verify=False)
             else:
                 print("现在只针post和ge方法进行了测试，其他方法请自行扩展")
             app["url"] = item["url"]

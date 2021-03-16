@@ -20,33 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="990be199-9678-42a1-a368-5699f670ea05" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Base/BaseReq1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Base/BaseRunner1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Runner/runner1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestCases/Api1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/auto_http34_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/auto_http34_test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/BaseGetExcel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/BaseGetExcel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/BaseInit.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/BaseInit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Base/BaseParams.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/BaseParams.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Base/BaseReq.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/BaseReq.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Log/info.pickle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Log/param.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Log/param_result.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Base/BaseStatistics.py" beforeDir="false" afterPath="$PROJECT_DIR$/Base/BaseStatistics.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Report/Report.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/Report.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report/api.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Report/api.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/channel_log.md" beforeDir="false" afterPath="$PROJECT_DIR$/channel_log.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/XlsxWriter-1.0.5.tar.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/install.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/install_pict.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pict33.msi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/requests-2.6.0.tar.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/xlrd-1.1.0.tar.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mark.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +78,7 @@
       <recent name="E:\demo\py_api\lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.runner1">
+  <component name="RunManager" selected="Python.runner">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,11 +295,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.runner" />
         <item itemvalue="Python.runner1" />
         <item itemvalue="Python.BaseParams" />
         <item itemvalue="Python.BaseGetExcel" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.runner" />
       </list>
     </recent_temporary>
   </component>
@@ -367,22 +344,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1615897912130" />
-    <state width="1344" height="205" key="GridCell.Tab.0.bottom" timestamp="1615901629300">
+    <state width="1344" height="205" key="GridCell.Tab.0.bottom" timestamp="1615901907836">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="205" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1615901629300" />
-    <state width="1344" height="205" key="GridCell.Tab.0.center" timestamp="1615901629300">
+    <state width="1344" height="205" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1615901907836" />
+    <state width="1344" height="205" key="GridCell.Tab.0.center" timestamp="1615901907835">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="205" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1615901629300" />
-    <state width="1344" height="205" key="GridCell.Tab.0.left" timestamp="1615901629300">
+    <state width="1344" height="205" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1615901907835" />
+    <state width="1344" height="205" key="GridCell.Tab.0.left" timestamp="1615901907835">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="205" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1615901629300" />
-    <state width="1344" height="205" key="GridCell.Tab.0.right" timestamp="1615901629300">
+    <state width="1344" height="205" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1615901907835" />
+    <state width="1344" height="205" key="GridCell.Tab.0.right" timestamp="1615901907835">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1344" height="205" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1615901629300" />
+    <state width="1344" height="205" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1615901907835" />
     <state x="211" y="200" width="1182" height="544" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1615901684951">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
